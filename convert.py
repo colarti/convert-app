@@ -1,10 +1,9 @@
 import customtkinter as ctk
 import darkdetect
 from layout import Layout
-from settings import *
 
 class App(ctk.CTk):
-    def __init__(self, dark, width=WIDTH, height=HEIGHT):
+    def __init__(self, dark, width=500, height=300):
         super().__init__()
         self.title('Converter App')
         self.gui_geometry(width, height)
