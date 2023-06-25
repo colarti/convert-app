@@ -1,15 +1,20 @@
 import customtkinter as ctk
 import darkdetect
-
+from layout import Layout
 
 class App(ctk.CTk):
-    def __init__(self, dark, width=300, height=400):
+    def __init__(self, dark, width=500, height=300):
         super().__init__()
         self.title('Converter App')
         self.gui_geometry(width, height)
 
         if dark:
             ctk.set_appearance_mode('dark')
+
+
+        #widgets
+        self.layout = Layout(self)
+
 
         self.bind('<Shift-Escape>', quit)
         self.mainloop()
