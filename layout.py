@@ -10,7 +10,6 @@ class Layout(ctk.CTkFrame):
 
         self.place(relx=.5, rely=.5, anchor='center', relwidth=1)
 
-
 class TextOptionPanel(ctk.CTkFrame):
     def __init__(self, parent, options, entry, state):
         super().__init__(parent, fg_color='grey')
@@ -21,7 +20,7 @@ class TextOptionPanel(ctk.CTkFrame):
         self.optionMenu = options
         self.entry = entry
         
-        ctk.CTkEntry(self, textvariable=self.entry, state=state, height=70, font=('Helvetica', 60)).grid(row=0, column=0, columnspan=2, sticky='ew', padx=5)
+        ctk.CTkEntry(self, textvariable=self.entry, justify='right', state=state, height=70, font=('Helvetica', 60)).grid(row=0, column=0, columnspan=2, sticky='ew', padx=5)
         ctk.CTkOptionMenu(self, variable=self.optionMenu, values=list_distance).grid(row=0, column=2, sticky='ew')
 
 
