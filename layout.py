@@ -24,8 +24,5 @@ class TextOptionPanel(ctk.CTkFrame):
         ctk.CTkEntry(self, textvariable=self.entry, height=70, font=('Helvetica', 60)).grid(row=0, column=0, columnspan=2, sticky='ew', padx=5)
         ctk.CTkOptionMenu(self, variable=self.optionMenu, values=list_distance).grid(row=0, column=2, sticky='ew')
 
-        print(f'option: {self.optionMenu.get()}')
-        print(f'entry: {self.entry.get()} ')
-
 
         self.pack(pady=5, padx=5, ipady=10, ipadx=10)

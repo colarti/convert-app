@@ -14,10 +14,12 @@ class App(ctk.CTk):
 
         #variables
         self.valueA = ctk.StringVar(value='')
-        self.entryA = ctk.StringVar(value='')
+        self.entryA = ctk.StringVar(value='0')
         self.valueB = ctk.StringVar(value='')
-        self.entryB = ctk.StringVar(value='')
-        
+        self.entryB = ctk.StringVar(value='0')
+
+        self.entryA.trace('w', self.updateVariables)
+        self.entryB.trace('w', self.updateVariables)       
 
         #widgets
         self.layout = Layout(self, self.valueA, self.entryA, self.valueB, self.entryB)
@@ -36,6 +38,16 @@ class App(ctk.CTk):
 
         self.geometry(f'{pWidth}x{pHeight}+{mWidth}+{mHeight}')
 
+    def updateVariables(self, *args):
+        print(f'args: {args}')
+        match args[0]:
+            case 'PY_VAR1':
+                self.calculate('TOP', self.valueA.get(), self.entryA.get(), self.valueB.get(), self.entryB.get())
+            case 'PY_VAR3':
+                self.calculate('BOTTOM', self.valueB.get(), self.entryB.get(), self.valueA.get(), self.entryA.get())
+    
+    def calculate(self, loc, pLength, pValue, sLength, sValue):
+        pass
 
 if __name__ == '__main__':
     dark = not darkdetect.isDark()
