@@ -13,13 +13,15 @@ class App(ctk.CTk):
             ctk.set_appearance_mode('dark')
 
         #variables
-        self.valueA = ctk.StringVar(value='')
+        self.valueA = ctk.StringVar(value=list_distance[0])
         self.entryA = ctk.StringVar(value='0')
-        self.valueB = ctk.StringVar(value='')
+        self.valueB = ctk.StringVar(value=list_distance[0])
         self.entryB = ctk.StringVar(value='0')
 
         self.entryA.trace('w', self.updateVariables)
-        self.entryB.trace('w', self.updateVariables)       
+        self.entryB.trace('w', self.updateVariables) 
+        self.valueA.trace('w', self.updateVariables)
+        self.valueB.trace('w', self.updateVariables)      
 
         #widgets
         self.layout = Layout(self, self.valueA, self.entryA, self.valueB, self.entryB)
@@ -39,15 +41,40 @@ class App(ctk.CTk):
         self.geometry(f'{pWidth}x{pHeight}+{mWidth}+{mHeight}')
 
     def updateVariables(self, *args):
-        print(f'args: {args}')
         match args[0]:
+            case 'PY_VAR0':
+                self.calculate(self.valueA.get(), self.entryA.get(), self.valueB.get())
             case 'PY_VAR1':
-                self.calculate('TOP', self.valueA.get(), self.entryA.get(), self.valueB.get(), self.entryB.get())
-            case 'PY_VAR3':
-                self.calculate('BOTTOM', self.valueB.get(), self.entryB.get(), self.valueA.get(), self.entryA.get())
-    
-    def calculate(self, loc, pLength, pValue, sLength, sValue):
-        pass
+                self.calculate(self.valueA.get(), self.entryA.get(), self.valueB.get())
+            case 'PY_VAR2':
+                self.calculate(self.valueA.get(), self.entryA.get(), self.valueB.get())
+
+    def calculate(self, pLength, pValue, sLength):
+        conversionValue = CONVERT_LIST[sLength][pLength]
+        result = 0
+
+        try:
+            primaryValue = float(pValue)
+            result = primaryValue / conversionValue
+
+        except:
+            print(f'INVALID PVALUE: {pValue}')
+            self.entryB.set('Invalid')
+            return
+
+        test = result % 1 > 0
+        if test > 0:
+            result = round(result, 2)
+        else:
+            result = int(result)
+
+        print(f'After result: {result}')
+
+        self.entryB.set(str(result))
+
+        print(f'pLength: {pLength} /  sLength: {sLength}  ->> conversion: {conversionValue}')
+        print(f'primaryValue: {primaryValue}   Before result: {result}')
+
 
 if __name__ == '__main__':
     dark = not darkdetect.isDark()
