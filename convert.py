@@ -4,7 +4,7 @@ from layout import Layout
 from settings import *
 
 class App(ctk.CTk):
-    def __init__(self, dark, width=WIDTH, height=HEIGHT):
+    def __init__(self, dark, width=500, height=300):
         super().__init__()
         self.title('Converter App')
         self.gui_geometry(width, height)
@@ -12,9 +12,15 @@ class App(ctk.CTk):
         if dark:
             ctk.set_appearance_mode('dark')
 
+        #variables
+        self.valueA = ctk.StringVar(value='')
+        self.entryA = ctk.StringVar(value='')
+        self.valueB = ctk.StringVar(value='')
+        self.entryB = ctk.StringVar(value='')
+        
 
         #widgets
-        self.layout = Layout(self)
+        self.layout = Layout(self, self.valueA, self.entryA, self.valueB, self.entryB)
 
 
         self.bind('<Shift-Escape>', quit)
